@@ -33,7 +33,22 @@ def encipher(message, key):
         >>> encipher("", 3)
         ''
     """
-    
+    encipher_text = ""
+    message = message.upper()
+    for char in message:
+        if char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            num_position = ord(char) - ord('A')
+            shift_char = num_position + key 
+            wrap_char = shift_char % 26
+            encipher_text += chr(wrap_char + ord("A"))
+        else:
+            encipher_text += char
+    message = encipher_text
+    return key, message
+message = input("Input your message: ").lower()
+key = int(input("Input a number to shift the letters by: "))
+print(encipher(message, key))
+
 
 
 def decipher(message, key):
@@ -64,7 +79,18 @@ def decipher(message, key):
         >>> decipher("", 3)
         ''
     """
-    
+    normal_text = ""
+    for char in message: 
+        if char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            num_position2 = ord(char) - ord('A')
+            shift_char2 = num_position2 - key
+            wrap_char2 = shift_char2 % 26
+            normal_text += wrap_char2
+        else:
+            normal_text += char
+    message = normal_text.lower()
+    return key, message
+print(decipher(message, key))
 
 
 

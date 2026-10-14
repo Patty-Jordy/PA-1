@@ -40,7 +40,8 @@ def monoalph(keyword):
             cipher_key += letter
 
     return dict(zip(PLAINTEXT_ALPHABET, cipher_key))
-
+keyword = input("Please input your keyword: ")
+monoalph(keyword)
 def decipher_dict(cipher_dict):
     """
     Construct the inverse of a substitution dictionary.
@@ -69,8 +70,12 @@ def decipher_dict(cipher_dict):
         >>> len(decipher)
         26
     """
-    
-
+    new_cipher = {}
+    for p, c in cipher_dict.items():
+        new_cipher[c] = p
+    return new_cipher
+cipher_dict = monoalph(keyword)
+print(decipher_dict(cipher_dict))
 def encipher(message, cipher_dict):
     """
     Encrypt a message using a substitution dictionary.
@@ -99,7 +104,18 @@ def encipher(message, cipher_dict):
         >>> encipher("", cipher)
         ''
     """
-    
+    new_message = ""
+    for char in message:
+        if char in "abcdefghijklmnopqrstuvwxyz":
+            if char in "abcdefghijklmnopqrstuvwxyz":
+                upper_char = char.upper()
+                secret_letter = cipher_dict[upper_char]
+                new_message += secret_letter
+        else:
+            new_message += char
+    return new_message
+message = input("Please input your message: ").lower()
+print(encipher(message, cipher_dict))
 
 def decipher(message, cipher_dict):
     """
@@ -128,4 +144,15 @@ def decipher(message, cipher_dict):
         >>> decipher("", cipher)
         ''
     """
-
+    message2 = ""
+    inverse = {}
+    for p, c in cipher_dict.items():
+        inverse[c] = p
+    for char in message:
+        if char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            uncipher_char = inverse[char]
+            message2 += uncipher_char.lower()
+        else:
+            message2 += char
+    return message2
+print(decipher(message, cipher_dict))
