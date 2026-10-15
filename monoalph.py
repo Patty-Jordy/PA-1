@@ -70,11 +70,12 @@ def decipher_dict(cipher_dict):
         >>> len(decipher)
         26
     """
+    cipher_dict = monoalph(keyword)
     new_cipher = {}
     for p, c in cipher_dict.items():
         new_cipher[c] = p
     return new_cipher
-cipher_dict = monoalph(keyword)
+
 
 def encipher(message, cipher_dict):
     """
